@@ -13,8 +13,7 @@ def get_place_by_id(mbid):
         Dictionary containing the place information.
     """
     key = cache.gen_key(mbid)
-    place = cache.get(key)
-    if not place:
+    if not (place := cache.get(key)):
         place = fetch_multiple_places(
             [mbid],
             includes=['artist-rels', 'place-rels', 'release-group-rels', 'url-rels'],

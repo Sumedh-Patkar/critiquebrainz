@@ -13,7 +13,7 @@ def get_release_by_id(mbid):
     """
     key = cache.gen_key(mbid)
     release = cache.get(key)
-    if not release:
+    if not (release := cache.get(key)):
         release = fetch_multiple_releases(
             [mbid],
             includes=['media', 'release-groups'],

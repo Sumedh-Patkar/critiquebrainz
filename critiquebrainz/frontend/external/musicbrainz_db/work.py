@@ -12,8 +12,7 @@ def get_work_by_id(mbid):
         Dictionary containing the work information
     """
     key = cache.gen_key(mbid)
-    work = cache.get(key)
-    if not work:
+    if not (work := cache.get(key)):
         work = fetch_multiple_works(
             [mbid],
             includes=['artist-rels', 'recording-rels'],

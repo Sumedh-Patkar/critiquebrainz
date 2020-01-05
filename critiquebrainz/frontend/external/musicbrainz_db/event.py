@@ -12,8 +12,7 @@ def get_event_by_id(mbid):
         Dictionary containing the event information.
     """
     key = cache.gen_key(mbid)
-    event = cache.get(key)
-    if not event:
+    if not (event := cache.get(key)):
         event = fetch_multiple_events(
             [mbid],
             includes=['artist-rels', 'place-rels', 'series-rels', 'url-rels', 'release-group-rels'],

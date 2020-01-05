@@ -7,8 +7,7 @@ import critiquebrainz.frontend.external.relationships.release_group as release_g
 def get_release_group_by_id(mbid):
     """Get release group using the MusicBrainz ID."""
     key = cache.gen_key(mbid)
-    release_group = cache.get(key)
-    if not release_group:
+    if not (release_group := cache.get(key)):
         release_group = fetch_multiple_release_groups(
             [mbid],
             includes=['artists', 'releases', 'release-group-rels', 'url-rels', 'tags'],
@@ -35,8 +34,7 @@ def browse_release_groups(*, artist_id, release_types=None, limit=None, offset=N
         release_types = []
     release_types = [release_type.capitalize() for release_type in release_types]
     key = cache.gen_key(artist_id, limit, offset, *release_types)
-    release_groups = cache.get(key)
-    if not release_groups:
+    if not (release_groups := cache.get(key)):
         release_groups = get_release_groups_for_artist(
             artist_id=artist_id,
             release_types=release_types,

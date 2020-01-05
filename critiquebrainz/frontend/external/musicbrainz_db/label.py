@@ -13,8 +13,7 @@ def get_label_by_id(mbid):
         Dictionary containing the label information
     """
     key = cache.gen_key(mbid)
-    label = cache.get(key)
-    if not label:
+    if not (label := cache.get(key)):
         label = fetch_multiple_labels(
             [mbid],
             includes=['artist-rels', 'url-rels'],

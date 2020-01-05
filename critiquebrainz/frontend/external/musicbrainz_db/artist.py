@@ -13,8 +13,7 @@ def get_artist_by_id(mbid):
         Dictionary containing the artist information
     """
     key = cache.gen_key(mbid)
-    artist = cache.get(key)
-    if not artist:
+    if not (artist := cache.get(key)):
         artist = fetch_multiple_artists(
             [mbid],
             includes=['artist-rels', 'url-rels'],
